@@ -4,6 +4,6 @@ import { Route } from '@angular/router';
 export const DEFAULT_ROUTES: Route[] = [
   {
     path: 'login',
-    loadChildren: () => import('login/LoginRoutes'),
+    loadChildren: () => import('login/LoginRoutes').then((m) => m.ROUTES),
   },
 ];

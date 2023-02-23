@@ -29,7 +29,6 @@ export class LoginService {
   );
 
   async loginGoogleSSO() {
-    console.log();
     let result: any = await signInWithPopup(
       this.auth,
       new GoogleAuthProvider()

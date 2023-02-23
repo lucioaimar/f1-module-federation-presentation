@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
-import { BehaviorSubject,  Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Pilot } from './pilots.model';
 
 @Injectable({
@@ -21,6 +21,14 @@ export class PilotsService {
   }
 
   getPilots(): Observable<Pilot[]> {
-    return collectionData(this.pilotsRef, {idField: 'driverId'}) as Observable<Pilot[]>;
+    return collectionData(this.pilotsRef, {
+      idField: 'driverId',
+    }) as Observable<Pilot[]>;
+  }
+
+  getPilot(id: string): Observable<Pilot | undefined> {
+    return this.getPilots().pipe(
+      map((pilots) => pilots.find((pilot) => pilot.driverId === id))
+    );
   }
 }
